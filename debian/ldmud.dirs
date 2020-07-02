@@ -1,0 +1,5 @@
+var/games/ldmud/lib
+var/games/ldmud/bin
+var/games/ldmud/include
+usr/lib/games/ldmud
+usr/bin

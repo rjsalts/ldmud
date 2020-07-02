@@ -1,0 +1,22 @@
+Description: correct permissions on LPC headers
+ There are headers installed for game developers to use as a convenience.
+ These were installed with the execute bit set. Updated Makefile.in to
+ correct permissions.
+ .
+ ldmud (3.5.1-1) UNRELEASED; urgency=medium
+ .
+   * Initial release. (Closes: #XXXXXX)
+Author: Richard James Salts <rjsalts@spectralmud.org>
+Last-Update: 2018-02-05
+
+--- ldmud-3.5.1.orig/src/Makefile.in
++++ ldmud-3.5.1/src/Makefile.in
+@@ -142,7 +142,7 @@ install-driver: ldmud@EXEEXT@ docs
+ 
+ install-headers: 
+ 	$(mkinstalldirs) $(MUD_LIB_INCLUDE)
+-	$(INSTALL) -c ../mudlib/sys/* $(MUD_LIB_INCLUDE)
++	$(INSTALL) -m 644 ../mudlib/sys/* $(MUD_LIB_INCLUDE)
+ 
+ install-utils:
+ 	(cd util; $(MAKE) $(MFLAGS) install)

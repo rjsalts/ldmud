@@ -1,0 +1,55 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE=1
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+export CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
+export CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS)
+export LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
+export PYTHON_LIBS:=$(shell pkg-config --libs python3-embed)
+
+
+%:
+	dh $@ --sourcedirectory=src
+
+override_dh_autoreconf:
+	dh_autoreconf ./autogen.sh
+
+override_dh_auto_configure:
+	cp debian/doc-wrapper src
+	dh_auto_configure -- \
+		--bindir=/usr/lib/games/ldmud \
+		--libdir=/var/games/ldmud/lib \
+		--includedir=/usr/share/doc/ldmud/examples/include \
+		--libexecdir=/var/games/ldmud/bin \
+		--enable-use-ipv6 \
+		--enable-use-mccp \
+		--enable-use-mysql \
+		--enable-use-pgsql=/usr/include/postgresql \
+		--enable-use-sqlite \
+		--enable-use-json \
+		--enable-use-xml \
+		--enable-use-tls \
+		--enable-use-python
+
+override_dh_auto_install:
+	(cd src;$(MAKE) ldmud docs utils)
+	(cd src/util/xerq;make)
+	(cd src;$(MAKE) BINDIR=$(CURDIR)/debian/ldmud/usr/games MANDIR=$(CURDIR)/debian/ldmud/usr/share/man install-driver)
+	cp src/util/indent/indent $(CURDIR)/debian/ldmud/usr/bin/lpc-indent
+	cp src/util/erq/erq $(CURDIR)/debian/ldmud/usr/lib/games/ldmud/erq
+	cp src/util/xerq/erq $(CURDIR)/debian/ldmud/usr/lib/games/ldmud/xerq
+
+override_dh_auto_clean:
+	-(cd src/util/xerq;$(MAKE) clean)
+	-rm src/doc-wrapper
+	dh_auto_clean
+	rm -f doc/man/ldmud.6
+	rm -f src/patchlevel.h
+	rm -f test/OBJ_DUMP
+	rm -f test/log/*
+	rm -f test/dummy*
+
+override_dh_compress:
+	dh_compress -X .h -X .c

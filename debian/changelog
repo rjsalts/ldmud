@@ -1,0 +1,5 @@
+ldmud (3.6.2-1) UNRELEASED; urgency=medium
+
+  * Initial release. (Closes: #889784)
+
+ -- Richard James Salts <debian@spectralmud.org>  Wed, 05 Feb 2020 13:08:40 +1100

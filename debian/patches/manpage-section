@@ -1,0 +1,32 @@
+Description: change manpage section to games
+ Manpage for ldmud was in section 1, moved to section 6
+ .
+ ldmud (3.5.1-1) UNRELEASED; urgency=medium
+ .
+   * Initial release. (Closes: #XXXXXX)
+Author: Richard James Salts <rjsalts@spectralmud.org>
+Last-Update: 2018-02-05
+
+--- ldmud-3.5.1.orig/src/Makefile.in
++++ ldmud-3.5.1/src/Makefile.in
+@@ -126,7 +126,7 @@ ldmud@EXEEXT@: $(OBJ)
+ 	$(CC) @OPTIMIZE_LINKING@ $(LDFLAGS) $(OBJ) -o $@ $(LIBS)
+ 
+ docs: ldmud@EXEEXT@
+-	-help2man --name=ldmud -N --help-option=--longhelp --include=ldmud-man.txt --output=../doc/man/ldmud.1 ./ldmud@EXEEXT@
++	-help2man -s 6 --name=ldmud -N --help-option=--longhelp --include=ldmud-man.txt --output=../doc/man/ldmud.6 ./doc-wrapper@EXEEXT@
+ 
+ install-all: install-driver install-headers install-utils
+ 
+@@ -136,9 +136,9 @@ install: install-driver
+ 	@echo "To install everything in one go, use 'make install-all'."
+ 
+ install-driver: ldmud@EXEEXT@ docs
+-	$(mkinstalldirs) $(BINDIR) $(MANDIR)/man1
++	$(mkinstalldirs) $(BINDIR) $(MANDIR)/man6
+ 	$(INSTALL) -c ldmud@EXEEXT@ $(BINDIR)/ldmud@EXEEXT@
+-	$(INSTALL) -c ../doc/man/ldmud.1 $(MANDIR)/man1/ldmud.1
++	$(INSTALL) -c ../doc/man/ldmud.6 $(MANDIR)/man6/ldmud.6
+ 
+ install-headers: 
+ 	$(mkinstalldirs) $(MUD_LIB_INCLUDE)

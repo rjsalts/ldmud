@@ -1,0 +1,39 @@
+Source: ldmud
+Maintainer: Richard James Salts <debian@spectralmud.org>
+Section: non-free/games
+Priority: optional
+Standards-Version: 4.5.0
+Homepage: http://ldmud.eu
+Vcs-Browser: https://github.com/ldmud/ldmud
+Vcs-Git: https://github.com/ldmud/ldmud.git -b master
+Build-Depends: debhelper (>=10), bison, autoconf, libpcre3-dev, libgcrypt-dev, libidn11-dev, default-libmysqlclient-dev, libpq-dev, libsqlite3-dev, libjson-c-dev, libxml2-dev, python3-dev, gnutls-dev | libssl-dev, help2man
+
+Package: ldmud
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: LPC mud driver
+ This is a game-driver for LP-Muds. It is highly used with modern LPMuds
+ all over the world. LDMud is the follower of the amylaar-driver.
+ .
+ This package contains the executable to run the ldmud daemon.
+
+Package: ldmud-doc
+Architecture: all
+Depends: ${misc:Depends}
+Section: non-free/doc
+Description: LPC mud driver documentation
+ This is a game-driver for LP-Muds. It is highly used with modern LPMuds
+ all over the world. LDMud is the follower of the amylaar-driver.
+ .
+ This package contains documentation for the facilities provided by LDMud
+ to the authors of the LPC muds.
+
+Package: ldmud-examples
+Architecture: all
+Depends: ${misc:Depends}
+Description: LPC mud driver -- example muds
+ This is a game-driver for LP-Muds. It is highly used with modern LPMuds
+ all over the world. LDMud is the follower of the amylaar-driver.
+ .
+ This package contains a simple mud to be run with LDMud and examples of
+ how to update an older mud to run with the current version of LDMud.

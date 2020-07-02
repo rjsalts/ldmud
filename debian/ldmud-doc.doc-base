@@ -1,0 +1,9 @@
+Document: ldmud-doc
+Title: LPC reference for LDMud
+Author: LPMud developers
+Abstract: These files describe the lpc language and built in functions
+ for the LDMud LPC driver.
+Section: Games/Tools
+
+Format: text
+Files: /usr/share/doc/ldmud-doc/*

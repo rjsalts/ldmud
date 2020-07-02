@@ -1,0 +1,3 @@
+version=3
+opts=filenamemangle=s/.+\/v?(\d\S+)\.tar\.gz/ldmud-$1\.tar\.gz/ \
+ https://github.com/ldmud/ldmud/tags .*/v?(\d\S+)\.tar.gz
